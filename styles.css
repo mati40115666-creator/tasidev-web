@@ -177,3 +177,7 @@
 .caso-thumb{width:100%;aspect-ratio:16/9;border-radius:10px;overflow:hidden;margin-bottom:18px;border:1px solid var(--line)}
 .caso-thumb img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;transition:transform .3s ease}
 .caso:hover .caso-thumb img{transform:scale(1.04)}
+
+/* link a sitio en vivo debajo de las capturas */
+.live-link{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:.85rem;color:var(--green);margin-top:-14px;margin-bottom:8px}
+.live-link:hover{color:var(--green-2)}
