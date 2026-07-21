@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tasidev — Sistemas de venta a medida para tu negocio</title>
+<meta name="description" content="Tiendas online, sistemas de pedidos y páginas web a medida. Tu diseño, tu dominio, tu panel. Costo fijo, sin comisiones por venta.">
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0D0D0F; --bg-2:#16161A; --line:#26262B;
+    --text:#F2F2F0; --text-2:#9C9CA3;
+    --green:#3ECF8E; --green-2:#34B27B;
+    --mono:'JetBrains Mono',monospace; --sans:'Satoshi',system-ui,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  ::selection{background:var(--green);color:#0D0D0F}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+  /* ---------- header ---------- */
+  header{position:sticky;top:0;z-index:50;background:rgba(13,13,15,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{font-weight:900;font-size:1.25rem;letter-spacing:-.02em}
+  .logo .tick{font-family:var(--mono);color:var(--green);font-weight:600}
+  .nav-links{display:flex;gap:28px;align-items:center;font-size:.95rem;color:var(--text-2)}
+  .nav-links a:hover{color:var(--text)}
+  .btn{display:inline-block;background:var(--green);color:#0B0B0C;font-weight:700;padding:.72em 1.4em;border-radius:8px;transition:background .18s ease, transform .18s ease}
+  .btn:hover{background:var(--green-2);transform:translateY(-1px)}
+  .btn-ghost{background:transparent;color:var(--text-2);border:1px solid var(--line)}
+  .btn-ghost:hover{background:var(--bg-2);color:var(--text);transform:none}
+  .nav .btn{padding:.55em 1.1em;font-size:.92rem}
+
+  /* ---------- section scaffolding ---------- */
+  section{padding:110px 0;border-bottom:1px solid var(--line)}
+  .eyebrow{font-family:var(--mono);font-size:.82rem;color:var(--text-2);letter-spacing:.02em;display:block;margin-bottom:18px}
+  .eyebrow b{color:var(--green);font-weight:500}
+  h1,h2,h3{letter-spacing:-.03em;line-height:1.12}
+  h2{font-size:clamp(1.7rem,3.6vw,2.5rem);font-weight:900;margin-bottom:14px}
+  .lede{color:var(--text-2);max-width:620px}
+
+  /* ---------- hero ---------- */
+  .hero{padding:96px 0 110px;border-bottom:1px solid var(--line)}
+  .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:64px;align-items:center}
+  h1{font-size:clamp(2.3rem,5.2vw,3.6rem);font-weight:900;margin-bottom:22px}
+  h1 .accent{color:var(--green)}
+  .hero p.sub{color:var(--text-2);font-size:1.08rem;max-width:520px;margin-bottom:34px}
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .micro{font-family:var(--mono);font-size:.78rem;color:var(--text-2);margin-top:16px}
+
+  /* signature: live admin panel */
+  .panel{background:var(--bg-2);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45)}
+  .panel-bar{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:.75rem;color:var(--text-2)}
+  .dot{width:10px;height:10px;border-radius:50%;background:var(--line)}
+  .panel-bar .title{margin-left:8px}
+  .panel-body{padding:18px}
+  .stat-row{display:flex;gap:12px;margin-bottom:16px}
+  .stat{flex:1;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+  .stat .k{font-family:var(--mono);font-size:.68rem;color:var(--text-2);text-transform:uppercase;letter-spacing:.06em}
+  .stat .v{font-family:var(--mono);font-size:1.25rem;font-weight:600;margin-top:4px}
+  .stat .v.g{color:var(--green)}
+  .order{display:flex;justify-content:space-between;align-items:center;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:11px 14px;margin-bottom:10px;font-size:.9rem;opacity:0;transform:translateY(6px);animation:orderIn .5s ease forwards}
+  .order .who{font-weight:700}
+  .order .what{color:var(--text-2);font-size:.82rem}
+  .order .st{font-family:var(--mono);font-size:.7rem;color:var(--green);border:1px solid rgba(62,207,142,.35);border-radius:99px;padding:3px 10px;white-space:nowrap}
+  .order:nth-child(2){animation-delay:.5s}.order:nth-child(3){animation-delay:1.1s}.order:nth-child(4){animation-delay:1.7s}
+  @keyframes orderIn{to{opacity:1;transform:translateY(0)}}
+  .panel-foot{font-family:var(--mono);font-size:.72rem;color:var(--text-2);padding:4px 18px 16px}
+  .cursor{display:inline-block;width:.55em;height:1em;background:var(--green);vertical-align:-.15em;animation:blink 1.1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+
+  /* ---------- problema ---------- */
+  .cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
+  .card{background:var(--bg-2);border:1px solid var(--line);border-radius:12px;padding:26px}
+  .card h3{font-size:1.08rem;font-weight:700;margin-bottom:10px}
+  .card p{color:var(--text-2);font-size:.95rem}
+  .card .tag{font-family:var(--mono);font-size:.72rem;color:var(--text-2);display:block;margin-bottom:14px}
+  .problema-cierre{margin-top:40px;font-size:1.15rem;font-weight:500;max-width:640px}
+  .problema-cierre b{color:var(--green);font-weight:700}
+
+  /* ---------- planes ---------- */
+  .planes{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
+  .plan{background:var(--bg-2);border:1px solid var(--line);border-radius:14px;padding:30px 26px;display:flex;flex-direction:column;position:relative}
+  .plan.featured{border-color:rgba(62,207,142,.5)}
+  .plan .badge{position:absolute;top:-12px;left:24px;background:var(--green);color:#0B0B0C;font-family:var(--mono);font-size:.68rem;font-weight:600;padding:4px 12px;border-radius:99px}
+  .plan .nombre{font-family:var(--mono);font-size:.78rem;color:var(--text-2);letter-spacing:.08em;text-transform:uppercase}
+  .plan h3{font-size:1.35rem;font-weight:900;margin:8px 0 4px}
+  .plan .para{color:var(--text-2);font-size:.9rem;font-style:italic;margin-bottom:16px}
+  .plan .desc{color:var(--text-2);font-size:.95rem;flex:1}
+  .plan .precio{font-family:var(--mono);margin-top:22px;padding-top:18px;border-top:1px solid var(--line);font-size:.85rem;color:var(--text-2)}
+  .plan .precio .n{color:var(--text);font-size:1.05rem;font-weight:600;display:block;margin-bottom:2px}
+  .planes-micro{font-family:var(--mono);font-size:.78rem;color:var(--text-2);margin-top:26px;max-width:640px}
+  .planes-cta{margin-top:30px}
+
+  /* ---------- comparativa ---------- */
+  .tabla{margin-top:44px;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  table{width:100%;border-collapse:collapse;font-size:.95rem}
+  th,td{padding:16px 20px;text-align:left;border-bottom:1px solid var(--line)}
+  tr:last-child td{border-bottom:none}
+  thead th{background:var(--bg-2);font-family:var(--mono);font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--text-2);font-weight:500}
+  thead th:last-child{color:var(--green)}
+  td:first-child{color:var(--text-2);font-size:.88rem}
+  td:nth-child(2){color:var(--text-2)}
+  td:last-child{font-weight:500}
+  .tabla-cierre{margin-top:34px;font-size:1.15rem;font-weight:500;max-width:640px}
+
+  /* ---------- casos ---------- */
+  .casos{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:44px}
+  .caso{background:var(--bg-2);border:1px solid var(--line);border-radius:14px;padding:30px;transition:border-color .18s ease}
+  .caso:hover{border-color:rgba(62,207,142,.4)}
+  .caso .rubro{font-family:var(--mono);font-size:.75rem;color:var(--text-2);display:block;margin-bottom:14px}
+  .caso h3{font-size:1.3rem;font-weight:900;margin-bottom:10px}
+  .caso p{color:var(--text-2);font-size:.95rem;margin-bottom:18px}
+  .caso .ver{font-family:var(--mono);font-size:.82rem;color:var(--green)}
+
+  /* ---------- proceso ---------- */
+  .pasos{margin-top:44px;display:grid;gap:0}
+  .paso{display:grid;grid-template-columns:64px 1fr;gap:20px;padding:26px 0;border-bottom:1px solid var(--line)}
+  .paso:last-child{border-bottom:none}
+  .paso .num{font-family:var(--mono);color:var(--text-2);font-size:.85rem;padding-top:3px}
+  .paso h3{font-size:1.08rem;font-weight:700;margin-bottom:6px}
+  .paso p{color:var(--text-2);font-size:.95rem;max-width:560px}
+  .nota-personal{margin-top:56px;background:var(--bg-2);border:1px solid var(--line);border-radius:14px;padding:30px;display:flex;gap:24px;align-items:flex-start}
+  .avatar{width:64px;height:64px;border-radius:50%;background:var(--bg);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:var(--mono);color:var(--green);font-weight:600;flex-shrink:0}
+  .nota-personal p{color:var(--text-2);font-size:.98rem}
+  .nota-personal b{color:var(--text)}
+
+  /* ---------- faq ---------- */
+  .faqs{margin-top:44px;max-width:760px}
+  details{border-bottom:1px solid var(--line)}
+  summary{cursor:pointer;padding:22px 0;font-weight:700;font-size:1.02rem;list-style:none;display:flex;justify-content:space-between;gap:20px;align-items:center}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:'+';font-family:var(--mono);color:var(--text-2);font-size:1.1rem;transition:transform .18s ease}
+  details[open] summary::after{transform:rotate(45deg);color:var(--green)}
+  details p{color:var(--text-2);font-size:.96rem;padding:0 0 22px;max-width:640px}
+
+  /* ---------- cta final ---------- */
+  .final{text-align:center;padding:130px 0}
+  .final h2{font-size:clamp(1.9rem,4vw,2.8rem)}
+  .final .lede{margin:0 auto 36px}
+  .final .micro{margin-top:18px}
+
+  footer{padding:36px 0;color:var(--text-2);font-size:.85rem;font-family:var(--mono);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  footer .wrap{display:flex;justify-content:space-between;width:100%;flex-wrap:wrap;gap:12px}
+
+  /* ---------- responsive ---------- */
+  @media(max-width:900px){
+    .hero-grid{grid-template-columns:1fr;gap:48px}
+    .cards3,.planes{grid-template-columns:1fr}
+    .casos{grid-template-columns:1fr}
+    section{padding:80px 0}
+    .nav-links a:not(.btn){display:none}
+    .tabla{overflow-x:auto}
+    table{min-width:560px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
+    .order{opacity:1;transform:none}
+  }
+  :focus-visible{outline:2px solid var(--green);outline-offset:3px;border-radius:4px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#top">tasidev<span class="tick">_</span></a>
+    <nav class="nav-links">
+      <a href="#planes">Planes</a>
+      <a href="#casos">Trabajos</a>
+      <a href="#proceso">Cómo trabajo</a>
+      <a href="#faq">Preguntas</a>
+      <a class="btn" href="https://wa.me/5493420000000?text=Hola%20Mat%C3%ADas!%20Quiero%20coordinar%20el%20diagn%C3%B3stico%20gratis%20para%20mi%20negocio.">Diagnóstico gratis</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow"><b>//</b> desarrollo a medida · santa fe, argentina</span>
+      <h1>Tu negocio merece su propio sistema de ventas.<br><span class="accent">No una plantilla.</span></h1>
+      <p class="sub">Desarrollo tiendas online, sistemas de pedidos y páginas web a medida — con tu diseño, tu dominio y tu panel de administración. Costo fijo y predecible, sin comisiones que crecen cada vez que vendés más.</p>
+      <div class="hero-ctas">
+        <a class="btn" href="https://wa.me/5493420000000?text=Hola%20Mat%C3%ADas!%20Quiero%20coordinar%20el%20diagn%C3%B3stico%20gratis%20para%20mi%20negocio.">Pedí tu diagnóstico gratis →</a>
+        <a class="btn btn-ghost" href="#casos">Ver trabajos reales</a>
+      </div>
+      <p class="micro">15-20 minutos por WhatsApp. Sin compromiso, sin presión de venta.</p>
+    </div>
+    <div class="panel" aria-hidden="true">
+      <div class="panel-bar">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="title">panel — tunegocio.com.ar</span>
+      </div>
+      <div class="panel-body">
+        <div class="stat-row">
+          <div class="stat"><span class="k">Ventas hoy</span><span class="v g">$184.500</span></div>
+          <div class="stat"><span class="k">Pedidos</span><span class="v">12</span></div>
+        </div>
+        <div class="order"><div><div class="who">Pedido #0043</div><div class="what">2× combo clásico · envío</div></div><span class="st">nuevo</span></div>
+        <div class="order"><div><div class="who">Pedido #0042</div><div class="what">1× kit skincare · retiro</div></div><span class="st">pagado</span></div>
+        <div class="order"><div><div class="who">Pedido #0041</div><div class="what">3× producto · envío</div></div><span class="st">enviado</span></div>
+      </div>
+      <div class="panel-foot">tu panel. tus datos. tu negocio<span class="cursor"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEMA -->
+<section>
+  <div class="wrap">
+    <span class="eyebrow"><b>//</b> el problema</span>
+    <h2>¿Te suena familiar?</h2>
+    <div class="cards3">
+      <div class="card">
+        <span class="tag">caso_01</span>
+        <h3>El WhatsApp desbordado</h3>
+        <p>Pedidos por mensaje, por historias, por audios. Anotás en un cuaderno, se te pasa uno, y el cliente se enoja. Vender más se volvió sinónimo de más caos.</p>
+      </div>
+      <div class="card">
+        <span class="tag">caso_02</span>
+        <h3>La plantilla que usa todo el mundo</h3>
+        <p>Tu tienda se ve igual a la de tu competencia. Mismo diseño, misma estructura, y encima pagás comisión por cada venta. Cuanto mejor te va, más pagás.</p>
+      </div>
+      <div class="card">
+        <span class="tag">caso_03</span>
+        <h3>La web vieja que da vergüenza mostrar</h3>
+        <p>Tenés una página de hace años que no representa lo que es tu negocio hoy. La gente te googlea, entra... y cierra.</p>
+      </div>
+    </div>
+    <p class="problema-cierre">Nada de esto es un problema de "tecnología". Es un problema de tiempo, plata y control. <b>Y tiene solución.</b></p>
+  </div>
+</section>
+
+<!-- PLANES -->
+<section id="planes">
+  <div class="wrap">
+    <span class="eyebrow"><b>//</b> planes</span>
+    <h2>Un plan para cada momento de tu negocio</h2>
+    <div class="planes">
+      <div class="plan">
+        <span class="nombre">Plan Presencia</span>
+        <h3>Existir bien en internet</h3>
+        <p class="para">Para quien necesita que lo encuentren y lo tomen en serio.</p>
+        <p class="desc">Una landing page a medida que comunica quién sos, qué hacés y por qué elegirte. Diseño propio, dominio propio, lista para que te encuentren en Google.</p>
+        <div class="precio"><span class="n">Desde $300.000</span>mantenimiento $50.000/mes</div>
+      </div>
+      <div class="plan featured">
+        <span class="badge">el más elegido</span>
+        <span class="nombre">Plan Ventas</span>
+        <h3>Vender online sin depender de nadie</h3>
+        <p class="para">Para quien quiere su propia tienda o sistema de pedidos.</p>
+        <p class="desc">Tienda online o sistema de pedidos completo, con panel de administración propio: cargás productos, cambiás precios y ves tus ventas vos mismo, sin saber nada de programación.</p>
+        <div class="precio"><span class="n">Desde $500.000</span>mantenimiento $95.000/mes</div>
+      </div>
+      <div class="plan">
+        <span class="nombre">Plan a Medida</span>
+        <h3>Lo que ninguna plantilla puede hacer</h3>
+        <p class="para">Para operaciones con necesidades específicas.</p>
+        <p class="desc">Turnos online, stock, reservas, módulos especiales. Lo pensamos juntos y lo construyo específicamente para tu operación.</p>
+        <div class="precio"><span class="n">Cotización según proyecto</span>mantenimiento $95.000/mes</div>
+      </div>
+    </div>
+    <p class="planes-micro">Todos los planes: 50% al iniciar, 50% al entregar. El mantenimiento cubre hosting, soporte y ajustes — un costo fijo, no un porcentaje de lo que vendés.</p>
+    <div class="planes-cta">
+      <a class="btn" href="https://wa.me/5493420000000?text=Hola%20Mat%C3%ADas!%20No%20s%C3%A9%20qu%C3%A9%20plan%20necesito%2C%20quiero%20el%20diagn%C3%B3stico%20gratis.">¿No sabés cuál necesitás? Lo vemos en el diagnóstico gratis →</a>
+    </div>
+  </div>
+</section>
+
+<!-- DIFERENCIADOR -->
+<section>
+  <div class="wrap">
+    <span class="eyebrow"><b>//</b> la diferencia</span>
+    <h2>La diferencia entre alquilar y ser dueño</h2>
+    <p class="lede">Las plataformas de tiendas y pedidos online resuelven el problema de hoy... creándote uno nuevo: tu negocio pasa a vivir en la casa de otro.</p>
+    <div class="tabla">
+      <table>
+        <thead>
+          <tr><th></th><th>Plataformas con plantilla</th><th>Tasidev</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Diseño</td><td>El mismo que miles de tiendas</td><td>Único, hecho para tu marca</td></tr>
+          <tr><td>Dominio</td><td>El de ellos (tumarca.plataforma.com)</td><td>El tuyo (tumarca.com.ar)</td></tr>
+          <tr><td>Costo por venta</td><td>Comisión por cada venta, para siempre</td><td>$0. Costo mensual fijo</td></tr>
+          <tr><td>Panel de administración</td><td>Genérico, con funciones que no usás</td><td>A tu medida, con lo que necesitás</td></tr>
+          <tr><td>Si algo falla</td><td>Ticket de soporte y a esperar</td><td>Me escribís directo a mí</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="tabla-cierre">Con Tasidev no alquilás una herramienta: <b>sos dueño de un activo digital que queda para tu negocio.</b></p>
+  </div>
+</section>
+
+<!-- CASOS -->
+<section id="casos">
+  <div class="wrap">
+    <span class="eyebrow"><b>//</b> trabajos</span>
+    <h2>Trabajos reales, resultados reales</h2>
+    <div class="casos">
+      <a class="caso" href="#">
+        <span class="rubro">emprendimiento de belleza · santa fe</span>
+        <h3>Sky Makeup</h3>
+        <p>Vendía solo por WhatsApp e Instagram: catálogo en historias, pedidos por mensaje, cobros a mano. Hoy tiene su tienda online propia con panel de administración: catálogo ordenado, pedidos automáticos y control total de su stock.</p>
+        <span class="ver">→ ver caso completo</span>
+      </a>
+      <a class="caso" href="#">
+        <span class="rubro">hamburguesería · santa fe</span>
+        <h3>Tribu Burger</h3>
+        <p>Arrancaba de cero, sin nada digital. Le construí un sistema de pedidos online propio: el cliente pide desde el celular y el pedido llega ordenado, sin caos de audios ni mensajes cruzados.</p>
+        <span class="ver">→ ver caso completo</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESO -->
+<section id="proceso">
+  <div class="wrap">
+    <span class="eyebrow"><b>//</b> el proceso</span>
+    <h2>Sin vueltas: así trabajamos</h2>
+    <div class="pasos">
+      <div class="paso"><span class="num">01</span><div><h3>Diagnóstico gratis (15-20 min)</h3><p>Hablamos por WhatsApp o videollamada. Me contás tu negocio y tu problema; yo te digo con honestidad qué necesitás — y qué no.</p></div></div>
+      <div class="paso"><span class="num">02</span><div><h3>Propuesta clara</h3><p>Te mando por escrito qué incluye, cuánto cuesta y cuánto tarda. Sin letra chica.</p></div></div>
+      <div class="paso"><span class="num">03</span><div><h3>Arrancamos (50%)</h3><p>Con la seña inicial empiezo el desarrollo. Te voy mostrando avances reales, no promesas.</p></div></div>
+      <div class="paso"><span class="num">04</span><div><h3>Entrega (50% restante)</h3><p>Revisamos todo juntos, ajustamos lo que haga falta, y tu sistema queda online y funcionando.</p></div></div>
+      <div class="paso"><span class="num">05</span><div><h3>Mantenimiento mensual</h3><p>Tu sistema queda en buenas manos: hosting, soporte directo conmigo y ajustes cubiertos por un costo fijo.</p></div></div>
+    </div>
+    <div class="nota-personal">
+      <div class="avatar">MT</div>
+      <p><b>Soy Matías Tasi, desarrollador.</b> Trabajás directo conmigo de principio a fin: la misma persona que te atiende el primer día es la que escribe cada línea de código de tu sistema. Sin vendedores, sin intermediarios, sin "se lo derivo al área técnica".</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <span class="eyebrow"><b>//</b> preguntas frecuentes</span>
+    <h2>Lo que todos preguntan antes de arrancar</h2>
+    <div class="faqs">
+      <details>
+        <summary>¿Por qué pagar mantenimiento mensual si la página ya está hecha?</summary>
+        <p>Porque un sistema online vivo necesita hosting, actualizaciones de seguridad y soporte. El mantenimiento cubre todo eso con un costo fijo — y te asegura que cuando necesités un ajuste, me escribís y lo resuelvo. Es la diferencia entre tener un sistema cuidado y tener una página abandonada.</p>
+      </details>
+      <details>
+        <summary>¿Y si necesito un cambio grande después de la entrega?</summary>
+        <p>Los ajustes chicos están cubiertos por el mantenimiento. Si querés sumar algo grande (un módulo nuevo, otra funcionalidad), lo cotizamos aparte, con la misma claridad del primer día.</p>
+      </details>
+      <details>
+        <summary>Trabajás solo... ¿qué pasa si estás con otro proyecto?</summary>
+        <p>Tomo pocos proyectos a la vez, justamente para que cada uno salga bien. Y tu sistema no depende de que yo esté conectado: una vez entregado, funciona solo — el panel lo manejás vos.</p>
+      </details>
+      <details>
+        <summary>¿Cuánto tarda un proyecto?</summary>
+        <p>Depende del plan: una landing puede estar en 2-3 semanas; una tienda completa, entre 4 y 8. En la propuesta te doy el plazo concreto para tu caso.</p>
+      </details>
+      <details>
+        <summary>No entiendo nada de tecnología, ¿es un problema?</summary>
+        <p>Para nada — es lo normal. El panel de administración se diseña para que lo uses vos: si sabés usar WhatsApp, sabés usar tu sistema. Y te enseño a manejarlo en la entrega.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="final" style="border-bottom:none">
+  <div class="wrap">
+    <span class="eyebrow" style="text-align:center"><b>//</b> siguiente paso</span>
+    <h2>Empezá por una charla de 15 minutos</h2>
+    <p class="lede">Contame qué vende tu negocio y qué te está haciendo perder tiempo. Te digo con honestidad qué haría yo — y si no te sirve lo que ofrezco, también te lo digo.</p>
+    <a class="btn" href="https://wa.me/5493420000000?text=Hola%20Mat%C3%ADas!%20Quiero%20coordinar%20el%20diagn%C3%B3stico%20gratis%20para%20mi%20negocio.">Pedí tu diagnóstico gratis →</a>
+    <p class="micro">Respondo en el día. De verdad.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>tasidev<span style="color:var(--green)">_</span> © 2026</span>
+    <span>Santa Fe, Argentina — trabajo con negocios de todo el país</span>
+  </div>
+</footer>
+
+</body>
+</html>
